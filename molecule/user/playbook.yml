@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Add test user
+      user:
+        name: test
+        shell: /bin/bash
+    - name: run ansible-pyenv role
+      include_role:
+        name: ansible-pyenv
+      vars:
+        pyenv_user: test

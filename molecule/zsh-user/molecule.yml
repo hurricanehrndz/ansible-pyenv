@@ -1,0 +1,30 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: pyenv_user_install_${MOLECULE_DISTRIBUTION:-fedora30}
+    image: "quay.io/samdoran/${MOLECULE_DISTRIBUTION:-fedora30}-ansible:latest"
+    command: ${MOLECULE_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: yes
+    pre_build_image: yes
+provisioner:
+  name: ansible
+  options:
+    vvv: true
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  directory: ../shared/tests
+  env:
+    TEST_CASE: zsh-user
+  options:
+    verbose: true
+  lint:
+    name: flake8

@@ -1,0 +1,14 @@
+---
+# defaults file for ansible-pyenv
+pyenv_user: "{{ ansible_env.USER | default('root') }}"
+pyenv_update_git_install: no
+pyenv_update_plugin: yes
+pyenv_install_rc: yes
+# auto detect
+pyenv_rc_settings_file: ""
+
+# For a system install, the shims dir will not be writable by users, disable rehashing
+pyenv_init_options: "{% if pyenv_user == 'root' %}--no-rehash{% endif %}"
+
+# additional options for the build process, e.g "--enable-shared"
+pyenv_python_configure_opts: ""

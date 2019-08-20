@@ -1,0 +1,91 @@
+---
+
+- when: pyenv_root is undefined
+  block:
+    - name: Get pyenv_user home
+      become: yes
+      getent:
+        database: passwd
+        key: "{{ pyenv_user }}"
+        split: ":"
+
+    - name: set pyenv user home
+      set_fact:
+        pyenv_user_home: "{{ getent_passwd[pyenv_user][4] }}"
+
+    - name: set pyenv user shell
+      set_fact:
+        pyenv_user_shell: "{{ getent_passwd[pyenv_user][5] }}"
+      when: pyenv_user != "root"
+
+    - name: Set pyenv_root
+      set_fact:
+        pyenv_root: "{% if pyenv_user == 'root' %}/usr/local/pyenv{% else %}{{ pyenv_user_home }}/.pyenv{% endif %}"
+
+- name: Install pyenv
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: "{{ pyenv_root }}"
+    update: "{{ pyenv_update_git_install }}"
+    version: "master"
+
+- name: Install pyenv-virtualenv plugin
+  git:
+    repo: https://github.com/pyenv/pyenv-virtualenv.git
+    dest: "{{ pyenv_root }}/plugins/pyenv-virtualenv"
+    update: "{{ pyenv_update_git_install }}"
+    version: "master"
+
+- name: Install xxenv-latest plugin
+  git:
+    repo: https://github.com/momo-lab/xxenv-latest.git
+    dest: "{{ pyenv_root }}/plugins/xxenv-latest"
+    update: "{{ pyenv_update_git_install }}"
+    version: "master"
+
+- name: Install pyenv-update plugin
+  git:
+    repo: https://github.com/pyenv/pyenv-update.git
+    dest: "{{ pyenv_root }}/plugins/pyenv-update"
+    update: "{{ pyenv_update_git_install }}"
+    version: "master"
+  when: pyenv_update_plugin
+
+- when: pyenv_install_rc
+  block:
+    - name: Install pyenv runtime config
+      template:
+        src: "pyenvrc.j2"
+        dest: "{{ pyenv_root }}/pyenvrc"
+        owner: "{{ pyenv_user }}"
+        mode: "0644"
+
+    - name: Set shell RC file
+      set_fact:
+        pyenv_rc_settings_file: "{{ item.name }}"
+      when:
+        - pyenv_user_shell|default("system")|search(item.shell)
+        - not pyenv_rc_settings_file
+      with_items:
+        - name: "/etc/profile.d/pyenv.sh"
+          shell: "system"
+        - name: "{{ pyenv_user_home }}/.bashrc"
+          shell: "bash"
+        - name: "{{ pyenv_user_home }}/.zshrc"
+          shell: "zsh"
+
+    - name: Enable pyenvrc at shell start
+      lineinfile:
+        dest: "{{ pyenv_rc_settings_file | default('/etc/profile.d/pyenv.sh', true) }}"
+        regexp: "/pyenvrc$"
+        line: "source {{ pyenv_root }}/pyenvrc"
+        create: true
+        state: present
+
+- name: Install python interpreters
+  shell: |
+    source {{ pyenv_root }}/pyenvrc
+    env PYTHON_CONFIGURE_OPTS="{{ pyenv_python_configure_opts }}" pyenv install {{ item }}
+  args:
+    creates:  "{{ pyenv_root }}/versions/{{ item }}/bin/python"
+  with_items: "{{ pyenv_python_versions }}"

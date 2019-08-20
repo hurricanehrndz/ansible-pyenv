@@ -1,0 +1,18 @@
+---
+# tasks file for ansible-pyenv
+- name: Set distro-specific variables
+  include_vars: '{{ item }}'
+  with_first_found:
+    - '{{ ansible_os_family }}.yml'
+    - default.yml
+
+- name: Install pyenv requirements
+  include_tasks: "{{ item }}"
+  with_first_found:
+    - '{{ ansible_os_family }}.yml'
+    - default.yml
+
+- name: Install pyenv
+  import_tasks: install-pyenv.yml
+  become: true
+  become_user: "{{ pyenv_user }}"
