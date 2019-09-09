@@ -4,9 +4,9 @@
   vars:
     latest_python: 3.7.4
     pyenv_virtualenvs:
-        - venv_name: "neovim"
-          py_version: "{{ latest_python }}"
+      - venv_name: "neovim"
+        py_version: "{{ latest_python }}"
     pyenv_python_versions:
-        - "{{ latest_python }}"
+      - "{{ latest_python }}"
   roles:
     - role: ansible-pyenv

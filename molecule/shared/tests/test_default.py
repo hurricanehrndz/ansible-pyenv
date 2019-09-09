@@ -69,3 +69,9 @@ def test_pyenv_rc_enabled(host, scenario):
     assert rc_settings_file.exists
     assert rc_settings_file.is_file
     assert rc_settings_file.contains('.*/pyenvrc$')
+
+def test_python(host, scenario):
+    python_ver, is_installed = scenario.get_python_test_case()
+    print("%s/versions/%s" % (scenario.get_pyenv_root(), python_ver))
+    python_install = host.file("%s/versions/%s" % (scenario.get_pyenv_root(), python_ver))
+    assert python_install.exists == is_installed

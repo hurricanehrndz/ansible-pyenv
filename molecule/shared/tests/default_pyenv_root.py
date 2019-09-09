@@ -9,3 +9,6 @@ def get_group():
 
 def get_rc_file():
     return "/etc/profile.d/pyenv.sh"
+
+def get_python_test_case():
+    return  "3.7.4", True

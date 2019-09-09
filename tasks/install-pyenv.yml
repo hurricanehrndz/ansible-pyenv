@@ -87,5 +87,15 @@
     source {{ pyenv_root }}/pyenvrc
     env PYTHON_CONFIGURE_OPTS="{{ pyenv_python_configure_opts }}" pyenv install {{ item }}
   args:
-    creates:  "{{ pyenv_root }}/versions/{{ item }}/bin/python"
+    creates: "{{ pyenv_root }}/versions/{{ item }}/bin/python"
   with_items: "{{ pyenv_python_versions }}"
+  when: pyenv_python_versions is defined
+
+- name: Create virtual environments
+  shell: |
+    source {{ pyenv_root }}/pyenvrc
+    pyenv virtualenv {{ item.py_version }} {{ item.venv_name }}
+  args:
+    creates: "{{ pyenv_root }}/versions/{{ item.venv_name }}/bin/python"
+  with_items: "{{ pyenv_virtualenvs }}"
+  when: pyenv_virtualenvs is defined
