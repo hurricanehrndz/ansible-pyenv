@@ -21,7 +21,8 @@ def AnsibleVars(host, AnsibleOSFamily):
         vars_file = "Debian.yml"
     else:
         vars_file = "default.yml"
-    return host.ansible("include_vars", os.path.join("../../vars/", vars_file))["ansible_facts"]
+    vars_file_path = os.path.join("../../vars/", vars_file)
+    return host.ansible("include_vars", vars_file_path)["ansible_facts"]
 
 
 def test_hosts_file(host):
@@ -64,14 +65,25 @@ def test_pyenv_plugins_are_installed(host, scenario, plugin):
     assert pyenv_plugin.user == pyenv_user
     assert pyenv_plugin.group == pyenv_group
 
+
 def test_pyenv_rc_enabled(host, scenario):
     rc_settings_file = host.file(scenario.get_rc_file())
     assert rc_settings_file.exists
     assert rc_settings_file.is_file
     assert rc_settings_file.contains('.*/pyenvrc$')
 
-def test_python(host, scenario):
-    python_ver, is_installed = scenario.get_python_test_case()
-    print("%s/versions/%s" % (scenario.get_pyenv_root(), python_ver))
-    python_install = host.file("%s/versions/%s" % (scenario.get_pyenv_root(), python_ver))
-    assert python_install.exists == is_installed
+
+def test_python_install(host, scenario):
+    python_ver, installed = scenario.get_python_test_case()
+    pyenv_root = scenario.get_pyenv_root()
+    python_path = f"{pyenv_root}/versions/{python_ver}"
+    python = host.file(python_path)
+    assert python.exists == installed
+
+
+def test_venv_creation(host, scenario):
+    venv_name, created = scenario.get_venv_test_case()
+    pyenv_root = scenario.get_pyenv_root()
+    venv_path = f"{pyenv_root}/versions/{venv_name}"
+    venv = host.file(venv_path)
+    assert venv.exists == created
