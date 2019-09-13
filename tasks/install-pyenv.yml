@@ -35,6 +35,7 @@
     dest: "{{ pyenv_root }}/plugins/pyenv-virtualenv"
     update: "{{ pyenv_update_git_install }}"
     version: "master"
+  when: pyenv_virtualenv_plugin
 
 - name: Install xxenv-latest plugin
   git:
@@ -42,6 +43,7 @@
     dest: "{{ pyenv_root }}/plugins/xxenv-latest"
     update: "{{ pyenv_update_git_install }}"
     version: "master"
+  when: xxenv_latest_plugin
 
 - name: Install pyenv-update plugin
   git:
