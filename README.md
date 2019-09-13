@@ -1,48 +1,71 @@
-Role Name
-=========
+# hurricanehrndz.pyenv
 
-A brief description of the role goes here.
+An Ansible Role to install pyenv on Ubuntu, Fedora and RedHat systems. By default, installs pyenv system-wide, but can configure to be deployed to a specific user.
 
-Requirements
-------------
+Additionally, role install several plugins to achieve a sane configuration. Plugins include:
 
-Any pre-requisites that may not be covered by Ansible itself or the role should
-be mentioned here. For instance, if the role uses the EC2 module, it may be a
-good idea to mention in this section that the boto package is required.
+- [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
+- [pyenv-update](https://github.com/pyenv/pyenv-update)
+- [xxenv-latest](https://github.com/momo-lab/xxenv-latest)
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+|Variable Name           |Default Value |Value Type |Description                                                               |
+|---                     |---           |---        |---                                                                       |
+|pyenv_user              |root          |String     |Default installs systems-wide or user specified                           |
+|pyenv_update_git_install|no            |Boolean    |Performs git pull on install                                              |
+|pyenv_root              |undefined     |String     |Install path, $HOME/.pyenv or /usr/local/pyenv                            |
+|pyenv_update_plugin     |yes           |Boolean    |Install pyenv-update plugin                                               |
+|xxenv_update_plugin     |yes           |Boolean    |Install xxenv-latest plugin                                               |
+|pyenv_virtualenv_plugin |yes           |Boolean    |Install pyenv-virtualenv plugin                                           |
+|pyenv_install_rc        |yes           |Boolean    |Installs runtime config                                                   |
+|pyenv_rc_settings_file  |Blank         |String     |Default, auto-detects and modifies shell rc or installs system-wide script|
+|pyenv_init_options      |--no-rehash   |String     |Init options for pyenv in rc file                                         |
 
-Dependencies
-------------
+### Example
 
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables that
-are used from other roles.
+```yaml
+---
+pyenv_root: "/home/hurricanehrndz/.local/pyenv"
+pyenv_user: "hurricanehrndz"
+pyenv_update_git_install: no
+pyenv_update_plugin: yes
+xxenv_latest_plugin: yes
+pyenv_virtualenv_plugin: yes
+pyenv_install_rc: no
+# auto detect
+pyenv_rc_settings_file: ""
 
-Example Playbook
-----------------
+# For a system install, the shims dir will not be writable by users, disable rehashing
+pyenv_init_options: "--no-rehash"
+
+# additional options for the build process, e.g "--enable-shared"
+pyenv_python_configure_opts: ""
+```
+
+## Example Playbook
 
 Including an example of how to use your role (for instance, with variables
 passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: ansible-pyenv, x: 42 }
+```yaml
+- hosts: servers
+  tasks:
+    - name: Add test user
+      user:
+        name: test
+        shell: /bin/bash
+    - name: Run pyenv role
+      include_role:
+        name: hurricanehrndz.pyenv
+      vars:
+        pyenv_user: test
+```
 
-License
--------
+## License
 
-BSD
+[MIT](LICENSE)
 
-Author Information
-------------------
+## Author Information
 
-An optional section for the role authors to include contact information, or a
-website (HTML is not allowed).
+[Carlos Hernandez aka HurricaneHrndz](https://github.com/hurricanehrndz)
