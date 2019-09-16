@@ -1,6 +1,6 @@
 # hurricanehrndz.pyenv
 
-An Ansible Role to install pyenv on Ubuntu, Fedora and RedHat systems. By default, installs pyenv system-wide, but can configure to be deployed to a specific user.
+An Ansible Role to install pyenv on Ubuntu, Fedora and RedHat systems. By default, installs pyenv system-wide, but can be configured for deployment to a specific user.
 
 Additionally, role install several plugins to achieve a sane configuration. Plugins include:
 
