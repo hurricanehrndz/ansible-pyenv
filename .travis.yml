@@ -7,14 +7,14 @@ matrix:
     - os: linux
       env:
         - ANSIBLE: 'ansible>=2.8'
-        - TEST_SCENARIO: "default"
+        - MOLECULE_SCENARIO: "default"
       services: docker
       language: python
       python: "3.8"
     - os: linux
       env:
         - ANSIBLE: 'ansible>=2.8'
-        - TEST_SCENARIO: "default"
+        - MOLECULE_SCENARIO: "default"
         - MOLECULE_DISTRIBUTION: "ubuntu18"
       services: docker
       language: python
@@ -22,7 +22,7 @@ matrix:
     - os: linux
       env:
         - ANSIBLE: 'ansible>=2.8'
-        - TEST_SCENARIO: "user"
+        - MOLECULE_SCENARIO: "user"
         - MOLECULE_DISTRIBUTION: "ubuntu18"
       services: docker
       language: python
@@ -30,7 +30,7 @@ matrix:
     - os: linux
       env:
         - ANSIBLE: 'ansible>=2.8'
-        - TEST_SCENARIO: "zsh-user"
+        - MOLECULE_SCENARIO: "zsh-user"
         - MOLECULE_DISTRIBUTION: "ubuntu18"
       services: docker
       language: python
