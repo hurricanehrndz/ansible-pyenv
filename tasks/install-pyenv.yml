@@ -66,7 +66,7 @@
       set_fact:
         pyenv_rc_settings_file: "{{ item.name }}"
       when:
-        - pyenv_user_shell|default("system")|search(item.shell)
+        - pyenv_user_shell|default("system") is search(item.shell)
         - not pyenv_rc_settings_file
       with_items:
         - name: "/etc/profile.d/pyenv.sh"
@@ -90,6 +90,7 @@
     env PYTHON_CONFIGURE_OPTS="{{ pyenv_python_configure_opts }}" pyenv install {{ item }}
   args:
     creates: "{{ pyenv_root }}/versions/{{ item }}/bin/python"
+    executable: /bin/bash
   with_items: "{{ pyenv_python_versions }}"
   when: pyenv_python_versions is defined
 
@@ -99,5 +100,6 @@
     pyenv virtualenv {{ item.py_version }} {{ item.venv_name }}
   args:
     creates: "{{ pyenv_root }}/versions/{{ item.venv_name }}/bin/python"
+    executable: /bin/bash
   with_items: "{{ pyenv_virtualenvs }}"
   when: pyenv_virtualenvs is defined
