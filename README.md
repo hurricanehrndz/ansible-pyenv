@@ -1,5 +1,9 @@
 # hurricanehrndz.pyenv
 
+[![Build Status](https://img.shields.io/travis/hurricanehrndz/ansible-pyenv/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.org/hurricanehrndz/ansible-pyenv)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://raw.githubusercontent.com/hurricanehrndz/ansible-rustup/master/LICENSE)
+
+
 An Ansible Role to install pyenv on Ubuntu, Fedora and RedHat systems. By default, installs pyenv system-wide, but can be configured for deployment to a specific user.
 
 Additionally, role install several plugins to achieve a sane configuration. Plugins include:
