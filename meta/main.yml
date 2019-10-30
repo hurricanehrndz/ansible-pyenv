@@ -9,10 +9,14 @@ galaxy_info:
   galaxy_tags:
     - python
     - development
+    - pyenv
 
   platforms:
     - name: Fedora
       versions:
         - 30
+    - name: Ubuntu
+      versions:
+        - bionic
 
 dependencies: []
