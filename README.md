@@ -4,10 +4,12 @@
 [![Ansible Role](https://img.shields.io/ansible/role/d/44292?style=for-the-badge)](https://galaxy.ansible.com/hurricanehrndz/pyenv)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://raw.githubusercontent.com/hurricanehrndz/ansible-rustup/master/LICENSE)
 
+An Ansible Role to install pyenv on Ubuntu, Fedora and RedHat systems. By
+default, installs pyenv system-wide, but can be configured for deployment to a
+specific user.
 
-An Ansible Role to install pyenv on Ubuntu, Fedora and RedHat systems. By default, installs pyenv system-wide, but can be configured for deployment to a specific user.
-
-Additionally, role install several plugins to achieve a sane configuration. Plugins include:
+Additionally, role install several plugins to achieve a sane configuration.
+Plugins include:
 
 - [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv)
 - [pyenv-update](https://github.com/pyenv/pyenv-update)
@@ -15,17 +17,19 @@ Additionally, role install several plugins to achieve a sane configuration. Plug
 
 ## Role Variables
 
-|Variable Name           |Default Value |Value Type |Description                                                               |
-|---                     |---           |---        |---                                                                       |
-|pyenv_user              |root          |String     |Default installs systems-wide or user specified                           |
-|pyenv_update_git_install|no            |Boolean    |Performs git pull on install                                              |
-|pyenv_root              |undefined     |String     |Install path, $HOME/.pyenv or /usr/local/pyenv                            |
-|pyenv_update_plugin     |yes           |Boolean    |Install pyenv-update plugin                                               |
-|xxenv_update_plugin     |yes           |Boolean    |Install xxenv-latest plugin                                               |
-|pyenv_virtualenv_plugin |yes           |Boolean    |Install pyenv-virtualenv plugin                                           |
-|pyenv_install_rc        |yes           |Boolean    |Installs runtime config                                                   |
-|pyenv_rc_settings_file  |Blank         |String     |Default, auto-detects and modifies shell rc or installs system-wide script|
-|pyenv_init_options      |--no-rehash   |String     |Init options for pyenv in rc file                                         |
+| Variable Name            | Default Value | Value Type | Description                                                                |
+|--------------------------|---------------|------------|----------------------------------------------------------------------------|
+| pyenv_user               | root          | String     | Default installs systems-wide or user specified                            |
+| pyenv_update_git_install | no            | Boolean    | Performs git pull on install                                               |
+| pyenv_root               | undefined     | String     | Install path, $HOME/.pyenv or /usr/local/pyenv                             |
+| pyenv_update_plugin      | yes           | Boolean    | Install pyenv-update plugin                                                |
+| xxenv_update_plugin      | yes           | Boolean    | Install xxenv-latest plugin                                                |
+| pyenv_virtualenv_plugin  | yes           | Boolean    | Install pyenv-virtualenv plugin                                            |
+| pyenv_enable_rc          | yes           | Boolean    | Install runtime config                                                     |
+| pyenv_rc_settings_file   | Blank         | String     | Default, auto-detects and modifies shell rc or installs system-wide script |
+| pyenv_init_options       | --no-rehash   | String     | Init options for pyenv in rc file                                          |
+| pyenv_python_versions    | undefined     | Array      | python version to install                                                  |
+| pyenv_virtualenv         | undefined     | Dictionary | Virtual envs to create                                                     |
 
 ### Example
 
@@ -66,6 +70,8 @@ passed in as parameters) is always nice for users too:
       vars:
         pyenv_user: test
 ```
+
+[Other Example](./molecule/default/playbook.yml)
 
 ## License
 
