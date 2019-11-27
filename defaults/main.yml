@@ -3,7 +3,7 @@
 pyenv_user: "{{ ansible_env.USER | default('root') }}"
 pyenv_update_git_install: no
 pyenv_update_plugin: yes
-pyenv_install_rc: yes
+pyenv_enable_rc: yes
 # auto detect
 pyenv_rc_settings_file: ""
 
