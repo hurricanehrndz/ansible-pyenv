@@ -60,7 +60,7 @@
     owner: "{{ pyenv_user }}"
     mode: "0644"
 
-- when: pyenv_install_rc
+- when: pyenv_enable_rc
   block:
     - name: Set shell RC file
       set_fact:
