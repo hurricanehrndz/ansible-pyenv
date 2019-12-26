@@ -12,7 +12,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: yes
-    pre_build_image: yes
+    pre_build_image: no
 provisioner:
   name: ansible
   options:
