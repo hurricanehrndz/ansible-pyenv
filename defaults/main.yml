@@ -4,7 +4,7 @@ pyenv_user: "{{ ansible_env.USER | default('root') }}"
 pyenv_update_git_install: no
 pyenv_update_plugin: yes
 pyenv_enable_rc: yes
-pyenv_root_suffix: "{% if pyenv_user == 'root' %}pyenv{% else %}.pyenv{% endif %}"
+pyenv_root_suffix: "/{% if pyenv_user == 'root' %}pyenv{% else %}.pyenv{% endif %}"
 
 # auto detect
 pyenv_rc_settings_file: ""
