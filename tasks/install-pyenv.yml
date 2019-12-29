@@ -9,11 +9,11 @@
         key: "{{ pyenv_user }}"
         split: ":"
 
-    - name: set pyenv user home
+    - name: Set pyenv user home
       set_fact:
         pyenv_user_home: "{{ getent_passwd[pyenv_user][4] }}"
 
-    - name: set pyenv user shell
+    - name: Set pyenv user shell
       set_fact:
         pyenv_user_shell: "{{ getent_passwd[pyenv_user][5] }}"
       when: pyenv_user != "root"
@@ -21,6 +21,11 @@
     - name: Set pyenv_root
       set_fact:
         pyenv_root: "{% if pyenv_user == 'root' %}/usr/local/{% else %}{{ pyenv_user_home }}{% endif %}{{ pyenv_root_suffix }}"
+
+- name: Set pyenv user shell for root
+  set_fact:
+    pyenv_user_shell: "system"
+  when: pyenv_user == "root"
 
 - name: Install pyenv
   git:
@@ -64,10 +69,10 @@
   block:
     - name: Set shell RC file
       set_fact:
-        pyenv_rc_settings_file: "{{ item.name }}"
+        pyenv_shell_rc: "{{ item.name }}"
       when:
-        - pyenv_user_shell|default("system") is search(item.shell)
-        - not pyenv_rc_settings_file
+        - pyenv_user_shell is search(item.shell)
+        - not pyenv_shell_rc
       with_items:
         - name: "/etc/profile.d/pyenv.sh"
           shell: "system"
@@ -78,11 +83,13 @@
 
     - name: Enable pyenvrc at shell start
       lineinfile:
-        dest: "{{ pyenv_rc_settings_file | default('/etc/profile.d/pyenv.sh', true) }}"
+        dest: "{{ pyenv_shell_rc }}"
         regexp: "/pyenvrc$"
         line: "source {{ pyenv_root }}/pyenvrc"
         create: true
         state: present
+      when:
+        - pyenv_shell_rc is defined
 
 - name: Install python interpreters
   shell: |

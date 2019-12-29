@@ -7,7 +7,7 @@ pyenv_enable_rc: yes
 pyenv_root_suffix: "/{% if pyenv_user == 'root' %}pyenv{% else %}.pyenv{% endif %}"
 
 # auto detect
-pyenv_rc_settings_file: ""
+pyenv_shell_rc: ""
 
 # For a system install, the shims dir will not be writable by users, disable rehashing
 pyenv_init_options: "{% if pyenv_user == 'root' %}--no-rehash{% endif %}"
