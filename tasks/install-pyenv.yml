@@ -20,7 +20,7 @@
 
     - name: Set pyenv_root
       set_fact:
-        pyenv_root: "{% if pyenv_user == 'root' %}/usr/local/{% else %}{{ pyenv_user_home }}{% endif %}{{ pyenv_root_suffix }}"
+        pyenv_root: "{% if pyenv_user == 'root' %}/usr/local/{% else %}{{ pyenv_user_home }}{% endif %}/{{ pyenv_root_suffix }}"
 
 - name: Set pyenv user shell for root
   set_fact:
