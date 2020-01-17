@@ -1,9 +1,4 @@
 ---
-
-- name: Update repo cache
-  action: >
-    {{ ansible_pkg_mgr }} update_cache=yes
-
 - name: Install development packages necessary for building Python
   action: >
     {{ ansible_pkg_mgr }} name="{{ pyenv_packages }}" state=present
