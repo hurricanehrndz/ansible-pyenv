@@ -1,0 +1,13 @@
+---
+- name: Define pyenv_pkg_mgr
+  set_fact:
+    pyenv_pkg_mgr: |-
+      {% if ansible_os_family == "Archlinux" -%}
+        package
+      {%- else -%}
+        {{ ansible_pkg_mgr }}
+      {%- endif %}
+
+- name: Install development packages necessary for building Python
+  action: >
+    {{ pyenv_pkg_mgr }} name="{{ pyenv_packages }}" state=present

@@ -8,10 +8,7 @@
     - default.yml
 
 - name: Install pyenv requirements
-  include_tasks: "{{ item }}"
-  with_first_found:
-    - '{{ ansible_os_family }}.yml'
-    - default.yml
+  include_tasks: install-sys-reqs.yml
 
 - name: Install pyenv
   import_tasks: install-pyenv.yml

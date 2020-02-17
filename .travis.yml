@@ -6,35 +6,30 @@ matrix:
   include:
     - os: linux
       env:
-        - ANSIBLE: 'ansible>=2.8'
-        - MOLECULE_SCENARIO: "default"
+        - ANSIBLE='ansible>=2.8'
+        - MOLECULE_SCENARIO="default"
       services: docker
       language: python
       python: "3.8"
     - os: linux
       env:
-        - ANSIBLE: 'ansible>=2.8'
-        - MOLECULE_SCENARIO: "default"
-        - MOLECULE_DISTRIBUTION: "ubuntu18"
+        - ANSIBLE='ansible>=2.8'
+        - MOLECULE_SCENARIO="user"
+        - MOLECULE_DISTRIBUTION="fedora30"
+        - MOLECULE_IMAGE="quay.io/samdoran/ubuntu18-ansible"
       services: docker
       language: python
       python: "3.8"
     - os: linux
       env:
-        - ANSIBLE: 'ansible>=2.8'
-        - MOLECULE_SCENARIO: "user"
-        - MOLECULE_DISTRIBUTION: "ubuntu18"
+        - ANSIBLE='ansible>=2.8'
+        - MOLECULE_SCENARIO="zsh-user"
+        - MOLECULE_DISTRIBUTION="archlinux"
+        - MOLECULE_IMAGE="manjarolinux/base:latest"
       services: docker
       language: python
       python: "3.8"
-    - os: linux
-      env:
-        - ANSIBLE: 'ansible>=2.8'
-        - MOLECULE_SCENARIO: "zsh-user"
-        - MOLECULE_DISTRIBUTION: "ubuntu18"
-      services: docker
-      language: python
-      python: "3.8"
+
 
 install:
   - pip3 install -U pip

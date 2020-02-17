@@ -1,0 +1,7 @@
+---
+
+pyenv_packages:
+  - base-devel
+  - openssl
+  - zlib
+  - git

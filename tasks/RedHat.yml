@@ -1,5 +1,0 @@
----
-- name: Install development packages necessary for building Python
-  action: >
-    {{ ansible_pkg_mgr }} name="{{ pyenv_packages }}" install_weak_deps=no state=present
-  become: true
