@@ -8,5 +8,15 @@
         py_version: "{{ latest_python }}"
     pyenv_python_versions:
       - "{{ latest_python }}"
-  roles:
-    - role: ansible-pyenv
+  tasks:
+    - name: Adjust id on manjaro
+      lineinfile:
+        dest: /etc/os-release
+        regexp: 'ID=.*'
+        line: 'ID=arch'
+        state: present
+      when: ansible_os_family == "Archlinux"
+
+    - name: run ansible-pyenv role
+      include_role:
+        name: ansible-pyenv

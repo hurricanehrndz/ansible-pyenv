@@ -19,6 +19,8 @@ def AnsibleVars(host, AnsibleOSFamily):
         vars_file = "RedHat.yml"
     elif AnsibleOSFamily == "Debian":
         vars_file = "Debian.yml"
+    elif AnsibleOSFamily == "Archlinux":
+        vars_file = "Archlinux.yml"
     else:
         vars_file = "default.yml"
     vars_file_path = os.path.join("../../vars/", vars_file)
@@ -33,10 +35,11 @@ def test_hosts_file(host):
 
 
 def test_pyenv_packages_are_installed(host, AnsibleVars):
-    print(AnsibleVars)
-    for pyenv_pkg in AnsibleVars["pyenv_packages"]:
-        pkg = host.package(pyenv_pkg)
-        assert pkg.is_installed
+    print(host.system_info)
+    if host.system_info.distribution != "arch":
+        for pyenv_pkg in AnsibleVars["pyenv_packages"]:
+            pkg = host.package(pyenv_pkg)
+            assert pkg.is_installed
 
 
 def test_pyenv_is_installed(host, scenario):

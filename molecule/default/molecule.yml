@@ -1,6 +1,6 @@
 ---
 dependency:
-  name: "galaxy"
+  name: galaxy
 driver:
   name: docker
 lint:
@@ -10,7 +10,7 @@ platforms:
     image: "${MOLECULE_IMAGE:-quay.io/samdoran/ubuntu18-ansible}"
     command: ${MOLECULE_COMMAND:-""}
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: false
 provisioner:
