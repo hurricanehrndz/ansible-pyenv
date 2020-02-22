@@ -1,5 +1,4 @@
 ---
-
 # tasks file for ansible-pyenv
 - name: Set distro-specific variables
   include_vars: '{{ item }}'
