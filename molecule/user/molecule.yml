@@ -3,8 +3,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+    yamllint .
+    ansible-lint .
+    flake8
 platforms:
   - name: "ansible-pyenv-${MOLECULE_DISTRIBUTION:-ubuntu18}"
     image: "${MOLECULE_IMAGE:-quay.io/samdoran/ubuntu18-ansible}"
@@ -17,8 +19,6 @@ provisioner:
   name: ansible
   options:
     vvv: true
-  lint:
-    name: ansible-lint
 verifier:
   name: testinfra
   directory: ../shared/tests
@@ -26,5 +26,3 @@ verifier:
     TEST_CASE: user
   options:
     verbose: true
-  lint:
-    name: flake8
