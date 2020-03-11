@@ -24,7 +24,7 @@ provisioner:
   playbooks:
     converge: ../resources/playbooks/converge.yml
   env:
-    TEST_CASE: default
+    TEST_CASE: zsh-user
 verifier:
   name: testinfra
   directory: ../resources/tests/
