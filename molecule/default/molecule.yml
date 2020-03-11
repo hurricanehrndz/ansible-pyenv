@@ -6,6 +6,7 @@ driver:
 lint: |
     yamllint .
     ansible-lint .
+    ansible-lint molecule/resources/playbooks/converge.yml
     flake8
 platforms:
   - name: "ansible-pyenv-${MOLECULE_DISTRIBUTION:-ubuntu18}"

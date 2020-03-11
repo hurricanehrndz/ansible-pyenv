@@ -6,6 +6,7 @@ driver:
 lint: |
     yamllint .
     ansible-lint .
+    ansible-lint molecule/resources/playbooks/converge.yml
     flake8
 platforms:
   - name: "ansible-pyenv-${MOLECULE_DISTRIBUTION:-ubuntu18}"
@@ -20,6 +21,8 @@ provisioner:
   name: ansible
   options:
     vvv: true
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
   env:
     TEST_CASE: default
 verifier:
