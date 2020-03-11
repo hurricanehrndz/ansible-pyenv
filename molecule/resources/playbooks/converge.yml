@@ -1,0 +1,37 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Define TEST_CASE
+      set_fact:
+        TEST_CASE: "{{ lookup('env','TEST_CASE') }}"
+
+    - name: Import playbook variables
+      include_vars: "{{ TEST_CASE }}.yml"
+
+    - name: Adjust id on manjaro
+      lineinfile:
+        dest: /etc/os-release
+        regexp: 'ID=.*'
+        line: 'ID=arch'
+        state: present
+      when: ansible_os_family == "Archlinux"
+
+    - name: run ansible-pyenv role
+      include_role:
+        name: ansible-pyenv
+      when: TEST_CASE == 'default'
+
+    - name: User test cases
+      block:
+      - name: Add test user
+        user:
+          name: test
+          shell: "{{ _pyenv_user_shell }}"
+
+      - name: run ansible-pyenv role
+        include_role:
+          name: ansible-pyenv
+        vars:
+          pyenv_user: test
+      when: TEST_CASE != 'default'

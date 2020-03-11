@@ -11,6 +11,7 @@ platforms:
   - name: "ansible-pyenv-${MOLECULE_DISTRIBUTION:-ubuntu18}"
     image: "${MOLECULE_IMAGE:-quay.io/samdoran/ubuntu18-ansible}"
     command: ${MOLECULE_COMMAND:-""}
+    dockerfile: ../resources/playbooks/Dockerfile.j2
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
@@ -19,9 +20,13 @@ provisioner:
   name: ansible
   options:
     vvv: true
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
+  env:
+    TEST_CASE: default
 verifier:
   name: testinfra
-  directory: ../shared/tests
+  directory: ../resources/tests/
   env:
     TEST_CASE: default
   options:

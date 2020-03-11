@@ -2,10 +2,11 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: podman
 lint: |
     yamllint .
     ansible-lint .
+    ansible-lint molecule/resources/playbooks/converge.yml
     flake8
 platforms:
   - name: "ansible-pyenv-${MOLECULE_DISTRIBUTION:-ubuntu18}"
@@ -14,14 +15,15 @@ platforms:
     dockerfile: ../resources/playbooks/Dockerfile.j2
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
     pre_build_image: false
 provisioner:
   name: ansible
-  options:
-    vvv: true
   env:
     TEST_CASE: default
+  options:
+    vvv: true
+  playbooks:
+    converge: ../resources/playbooks/converge.yml
 verifier:
   name: testinfra
   directory: ../resources/tests/
