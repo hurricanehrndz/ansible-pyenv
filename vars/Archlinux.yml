@@ -3,5 +3,6 @@
 pyenv_packages:
   - base-devel
   - openssl
+  - libffi
   - zlib
   - git
