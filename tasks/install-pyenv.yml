@@ -88,6 +88,7 @@
         line: "source {{ pyenv_root }}/pyenvrc"
         create: true
         state: present
+        mode: "0644"
       when:
         - pyenv_shell_rc is defined
 

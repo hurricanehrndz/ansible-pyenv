@@ -38,6 +38,7 @@ script:
   - python --version
   - molecule --version
   - ansible --version
+  - ansible-lint --version
   - molecule test -s $MOLECULE_SCENARIO
 
 notifications:
