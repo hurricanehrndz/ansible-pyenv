@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export MOLECULE_IMAGE="fedora/33"
+export MOLECULE_DISTRIBUTION="fedora"
+export MOLECULE_SCENARIO="default"
+export ANSIBLE_VAULT_PASSWORD_FILE="$XDG_CONFIG_HOME/ansible/ci-secret"
+# https://github.com/ansible/ansible/issues/67004
+export ANSIBLE_PIPELINING=false

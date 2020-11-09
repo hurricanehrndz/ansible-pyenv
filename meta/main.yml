@@ -15,9 +15,14 @@ galaxy_info:
   platforms:
     - name: Fedora
       versions:
-        - 30
+        - 33
+        - 32
     - name: Ubuntu
       versions:
+        - focal
         - bionic
+    - name: Archlinux
+      versions:
+        - all
 
 dependencies: []
