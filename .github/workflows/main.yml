@@ -21,10 +21,10 @@ jobs:
           architecture: 'x64'
       - uses: actions/checkout@v2
         with:
-          path: format(${{ github.repository }}, "ansible-", "")
+          path: pyenv
 
       - run: |
-          pip3 install ansible >= 2.8 testinfra molecule molecule-lxd docker flake8 ansible-lint yamllint
+          pip3 install ansible testinfra molecule molecule-lxd docker flake8 ansible-lint yamllint
           
       - run: |
           python --version
