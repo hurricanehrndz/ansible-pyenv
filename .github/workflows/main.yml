@@ -33,3 +33,15 @@ jobs:
 
       - run: molecule test -s default
         working-directory: pyenv
+
+      - run: molecule test -s zsh-user
+        working-directory: pyenv
+        env:
+          MOLECULE_IMAGE: "archlinux/current"
+          MOLECULE_DISTRIBUTION: "archlinux"
+
+      - run: molecule test -s user
+        working-directory: pyenv
+        env:
+          MOLECULE_IMAGE: "fedora/33"
+          MOLECULE_DISTRIBUTION: "fedora"

@@ -1,6 +1,6 @@
 # hurricanehrndz.pyenv
 
-[![Build Status](https://img.shields.io/travis/hurricanehrndz/ansible-pyenv/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.org/hurricanehrndz/ansible-pyenv)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/hurricanehrndz/ansible-pyenv/CI?style=for-the-badge)
 [![Ansible Role](https://img.shields.io/ansible/role/d/44292?style=for-the-badge)](https://galaxy.ansible.com/hurricanehrndz/pyenv)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](https://raw.githubusercontent.com/hurricanehrndz/ansible-pyenv/master/LICENSE)
 

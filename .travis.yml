@@ -13,32 +13,11 @@ matrix:
         snaps:
           - name: lxd
             channel: stable
-    - os: linux
-      env:
-        - ANSIBLE='ansible>=2.8'
-        - MOLECULE_SCENARIO="user"
-        - MOLECULE_DISTRIBUTION="fedora"
-        - MOLECULE_IMAGE="fedora/33"
-      language: python
-      python: "3.8"
-      addons:
-        snaps:
-          - name: lxd
-            channel: stable
-    - os: linux
-      env:
-        - ANSIBLE='ansible>=2.8'
-        - MOLECULE_SCENARIO="zsh-user"
-        - MOLECULE_DISTRIBUTION="archlinux"
-        - MOLECULE_IMAGE="archlinux/current"
-      language: python
-      python: "3.8"
-      addons:
-        snaps:
-          - name: lxd
-            channel: stable
-
+git:
+  clone: false
 install:
+  - git clone https://github.com/$TRAVIS_REPO_SLUG.git pyenv
+  - cd pyenv
   - sudo apt update
   - sudo /snap/bin/lxd waitready
   - sudo /snap/bin/lxd init --auto
