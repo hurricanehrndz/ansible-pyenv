@@ -26,6 +26,15 @@ jobs:
           sudo /snap/bin/lxd waitready
           sudo /snap/bin/lxd init --auto
           sudo usermod -a -G lxd ${USER}
+
+      - name: Debug LXD
+        run: |
+          ls -la /var/snap/lxd/common/lxd/unix.socket
+          newgrp lxd
+          echo $GID
+          echo $UID
+          /snap/bin/lxc info
+
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
@@ -54,7 +63,7 @@ jobs:
 
       - name: Run molecule test
         run: |
-          /snap/bin/lxc info
+          newgrp lxd
           molecule --debug test -s ${{ matrix.tests.scenario }}
         working-directory: pyenv
         env:
