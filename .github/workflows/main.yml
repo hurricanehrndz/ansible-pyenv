@@ -20,9 +20,9 @@ jobs:
             scenario: "default"
 
     steps:
-      # install lxd
+      # Configure lxd
       - run: |
-          sudo snap install lxd
+          sudo /snap/bin/lxd.migrate -yes || true
           sudo /snap/bin/lxd waitready
           sudo /snap/bin/lxd init --auto
           sudo usermod -a -G lxd ${USER}
@@ -51,6 +51,7 @@ jobs:
           ansible --version
 
       - run: |
+          /snap/bin/lxc info
           molecule --debug test -s ${{ matrix.tests.scenario }}
         working-directory: pyenv
         env:
