@@ -1,7 +1,6 @@
 #!/bin/bash
 
-export MOLECULE_IMAGE="ubuntu/focal"
-export MOLECULE_DISTRIBUTION="focal"
+export MOLIMG="ubuntu/focal"
 export MOLECULE_SCENARIO="default"
 export ANSIBLE_VAULT_PASSWORD_FILE="$XDG_CONFIG_HOME/ansible/ci-secret"
 # https://github.com/ansible/ansible/issues/67004
