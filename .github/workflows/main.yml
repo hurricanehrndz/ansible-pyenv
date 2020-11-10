@@ -51,7 +51,6 @@ jobs:
           ansible --version
 
       - run: |
-          newgrp lxd
           molecule --debug test -s ${{ matrix.tests.scenario }}
         working-directory: pyenv
         env:
