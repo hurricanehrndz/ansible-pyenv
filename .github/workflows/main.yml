@@ -15,7 +15,8 @@ jobs:
     strategy:
       matrix:
         tests:
-          - distro: "archlinux/current"
+          - distro: "archlinux"
+            img: "archlinux/current"
             scenario: "default"
 
     steps:
@@ -45,7 +46,8 @@ jobs:
       - run: molecule test -s ${{ matrix.tests.scenario }}
         working-directory: pyenv
         env:
-          MOLIMG: ${{ matrix.tests.distro }}
+          MLDISTRO: ${{ matrix.tests.distro }}
+          MLIMG: ${{ matrix.tests.img }}
 
       # - run: molecule test -s zsh-user
       #   working-directory: pyenv

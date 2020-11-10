@@ -11,8 +11,8 @@ lint: |
     ansible-lint molecule/resources/playbooks/converge.yml
     flake8
 platforms:
-  - name: "pyenv-${${MOLIMG/\//-}:-ubuntu-focal}"
-    alias: "${MOLIMG:-ubuntu/focal}"
+  - name: "pyenv-${MLDISTRO:-focal}"
+    alias: "${MLIMG:-ubuntu/focal}"
 provisioner:
   name: ansible
   options:
