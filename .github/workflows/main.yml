@@ -20,16 +20,15 @@ jobs:
             scenario: "default"
 
     steps:
-      - name: Configure lxd
+      - name: Configure LXD
         run: |
           sudo /snap/bin/lxd.migrate -yes || true
           sudo /snap/bin/lxd waitready
           sudo /snap/bin/lxd init --auto
           sudo usermod -a -G lxd ${USER}
 
-      - name: Debug LXD
+      - name: Show LXD Info
         run: |
-          ls -la /var/snap/lxd/common/lxd/unix.socket
           sg lxd -c "/snap/bin/lxc info"
 
       - uses: actions/setup-python@v2
@@ -60,8 +59,7 @@ jobs:
 
       - name: Run molecule test
         run: |
-          newgrp lxd
-          molecule --debug test -s ${{ matrix.tests.scenario }}
+          sg lxd -c "molecule --debug test -s ${{ matrix.tests.scenario }}"
         working-directory: pyenv
         env:
           MLDISTRO: ${{ matrix.tests.distro }}
