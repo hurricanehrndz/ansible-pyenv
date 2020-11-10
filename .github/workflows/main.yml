@@ -12,6 +12,11 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distros:
+          - name: "archlinux"
+            image_alias: "archlinux/current"
 
     steps:
       - uses: bonddim/action-lxd@v1
@@ -33,15 +38,18 @@ jobs:
 
       - run: molecule test -s default
         working-directory: pyenv
-
-      - run: molecule test -s zsh-user
-        working-directory: pyenv
         env:
-          MOLECULE_IMAGE: "archlinux/current"
-          MOLECULE_DISTRIBUTION: "archlinux"
+          MOLECULE_IMAGE: ${{ matrix.distros.image_alias }}
+          MOLECULE_DISTRIBUTION: ${{ matrix.distros.name }}
 
-      - run: molecule test -s user
-        working-directory: pyenv
-        env:
-          MOLECULE_IMAGE: "fedora/33"
-          MOLECULE_DISTRIBUTION: "fedora"
+      # - run: molecule test -s zsh-user
+      #   working-directory: pyenv
+      #   env:
+      #     MOLECULE_IMAGE: "archlinux/current"
+      #     MOLECULE_DISTRIBUTION: "archlinux"
+
+      # - run: molecule test -s user
+      #   working-directory: pyenv
+      #   env:
+      #     MOLECULE_IMAGE: "fedora/33"
+      #     MOLECULE_DISTRIBUTION: "fedora"
