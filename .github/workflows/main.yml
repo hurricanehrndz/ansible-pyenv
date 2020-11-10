@@ -25,13 +25,11 @@ jobs:
 
       - run: |
           pip3 install ansible testinfra molecule molecule-lxd docker flake8 ansible-lint yamllint
-          
+
       - run: |
           python --version
           molecule --version
           ansible --version
-      
+
       - run: molecule test -s default
         working-directory: pyenv
-
-
