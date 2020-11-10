@@ -25,8 +25,7 @@ jobs:
           sudo snap install lxd
           sudo /snap/bin/lxd waitready
           sudo /snap/bin/lxd init --auto
-          GROUPNAME="$(getent group $UID | awk -F: '{print $1}')"
-          sudo chgrp $GROUPNAME /var/snap/lxd/common/lxd/unix.socket
+          sudo usermod -a -G lxd ${USER}
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
@@ -36,14 +35,24 @@ jobs:
           path: pyenv
 
       - run: |
-          pip3 install ansible testinfra molecule molecule-lxd docker flake8 ansible-lint yamllint
+          pip3 install   \
+            ansible      \
+            testinfra    \
+            molecule     \
+            molecule-lxd \
+            docker       \
+            flake8       \
+            ansible-lint \
+            yamllint
 
       - run: |
           python --version
           molecule --version
           ansible --version
 
-      - run: molecule test -s ${{ matrix.tests.scenario }}
+      - run: |
+          newgrp lxd
+          molecule --debug test -s ${{ matrix.tests.scenario }}
         working-directory: pyenv
         env:
           MLDISTRO: ${{ matrix.tests.distro }}
