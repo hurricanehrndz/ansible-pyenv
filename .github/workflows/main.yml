@@ -31,7 +31,7 @@ jobs:
           molecule --version
           ansible --version
       
-      - run: |
-          molecule test -s default
+      - run: molecule test -s default
+        working-directory: pyenv
 
 
