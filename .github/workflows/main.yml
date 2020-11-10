@@ -30,10 +30,7 @@ jobs:
       - name: Debug LXD
         run: |
           ls -la /var/snap/lxd/common/lxd/unix.socket
-          newgrp lxd
-          echo $GID
-          echo $UID
-          /snap/bin/lxc info
+          sg lxd -c "/snap/bin/lxc info"
 
       - uses: actions/setup-python@v2
         with:
