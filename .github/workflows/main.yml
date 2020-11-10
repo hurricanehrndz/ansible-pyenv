@@ -18,6 +18,12 @@ jobs:
           - distro: "archlinux"
             img: "archlinux/current"
             scenario: "default"
+          - distro: "ubuntu"
+            img: "ubuntu/focal"
+            scenario: "user"
+          - distro: "fedora"
+            img: "fedora/33"
+            scenario: "zsh-user"
 
     steps:
       - name: Configure LXD
@@ -64,15 +70,3 @@ jobs:
         env:
           MLDISTRO: ${{ matrix.tests.distro }}
           MLIMG: ${{ matrix.tests.img }}
-
-      # - run: molecule test -s zsh-user
-      #   working-directory: pyenv
-      #   env:
-      #     MOLECULE_IMAGE: "archlinux/current"
-      #     MOLECULE_DISTRIBUTION: "archlinux"
-
-      # - run: molecule test -s user
-      #   working-directory: pyenv
-      #   env:
-      #     MOLECULE_IMAGE: "fedora/33"
-      #     MOLECULE_DISTRIBUTION: "fedora"
