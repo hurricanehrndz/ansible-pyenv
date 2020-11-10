@@ -20,8 +20,8 @@ jobs:
             scenario: "default"
 
     steps:
-      # Configure lxd
-      - run: |
+      - name: Configure lxd
+        run: |
           sudo /snap/bin/lxd.migrate -yes || true
           sudo /snap/bin/lxd waitready
           sudo /snap/bin/lxd init --auto
@@ -34,7 +34,8 @@ jobs:
         with:
           path: pyenv
 
-      - run: |
+      - name: Install molecule dependency
+        run: |
           pip3 install   \
             ansible      \
             testinfra    \
@@ -45,12 +46,14 @@ jobs:
             ansible-lint \
             yamllint
 
-      - run: |
+      - name: Show version info of tools
+        run: |
           python --version
           molecule --version
           ansible --version
 
-      - run: |
+      - name: Run molecule test
+        run: |
           /snap/bin/lxc info
           molecule --debug test -s ${{ matrix.tests.scenario }}
         working-directory: pyenv
