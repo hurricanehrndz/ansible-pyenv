@@ -9,14 +9,6 @@
     - name: Import playbook variables
       include_vars: "{{ TEST_CASE }}.yml"
 
-    - name: Adjust id on manjaro
-      lineinfile:
-        dest: /etc/os-release
-        regexp: 'ID=.*'
-        line: 'ID=arch'
-        state: present
-      when: ansible_os_family == "Archlinux"
-
     - name: run pyenv role
       include_role:
         name: pyenv
