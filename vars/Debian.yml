@@ -18,3 +18,4 @@ pyenv_packages:
   - tk-dev
   - xz-utils
   - zlib1g-dev
+  - python-setuptools

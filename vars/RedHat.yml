@@ -16,3 +16,4 @@ pyenv_packages:
   - xz-devel
   - libffi-devel
   - findutils
+  - python-setuptools
