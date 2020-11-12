@@ -65,7 +65,7 @@ jobs:
 
       - name: Run molecule test
         run: |
-          sg lxd -c "molecule --debug test -s ${{ matrix.tests.scenario }}"
+          sg lxd -c "molecule test -s ${{ matrix.tests.scenario }}"
         working-directory: pyenv
         env:
           MLDISTRO: ${{ matrix.tests.distro }}
