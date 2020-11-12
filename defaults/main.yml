@@ -6,6 +6,9 @@ pyenv_update_plugin: yes
 pyenv_enable_rc: yes
 pyenv_root_suffix: "{% if pyenv_user == 'root' %}pyenv{% else %}.pyenv{% endif %}"
 
+# default python version
+pyenv_default_py_version: ""
+
 # auto detect
 pyenv_shell_rc: ""
 
