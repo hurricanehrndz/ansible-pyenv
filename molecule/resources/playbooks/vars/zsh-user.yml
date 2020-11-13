@@ -1,2 +1,8 @@
 ---
+latest_python: 3.9.0
+pyenv_virtualenvs:
+  - venv_name: "neovim"
+    py_version: "{{ latest_python }}"
+pyenv_python_versions:
+  - "{{ latest_python }}"
 _pyenv_user_shell: /bin/zsh

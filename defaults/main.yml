@@ -7,7 +7,9 @@ pyenv_enable_rc: yes
 pyenv_root_suffix: "{% if pyenv_user == 'root' %}pyenv{% else %}.pyenv{% endif %}"
 
 # default python version
-pyenv_default_py_version: ""
+pyenv_set_python_default_version: true
+# if pyenv_default_version is undefined use first installed version
+# pyenv_python_default_version: ""
 
 # auto detect
 pyenv_shell_rc: ""

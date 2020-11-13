@@ -112,10 +112,18 @@
   with_items: "{{ pyenv_virtualenvs }}"
   when: pyenv_virtualenvs is defined
 
+- name: Set pyenv_python_default_version
+  set_fact:
+    pyenv_python_default_version: "{{ pyenv_python_versions|first }}"
+  when:
+    - pyenv_python_default_version is undefined
+    - pyenv_python_versions is defined
+    - pyenv_set_python_default_version|default(true)
+
 - name: Set global python version
   template:
     src: version.j2
     dest: "{{ pyenv_root }}/version"
     owner: "{{ pyenv_user }}"
     mode: "0644"
-  when: pyenv_default_python_version is defined
+  when: pyenv_python_default_version is defined
