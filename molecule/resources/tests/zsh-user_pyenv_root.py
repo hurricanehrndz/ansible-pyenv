@@ -15,8 +15,8 @@ def get_rc_file():
 
 
 def get_python_test_case():
-    return "3.9.0", False
+    return "3.9.0", True
 
 
 def get_venv_test_case():
-    return "neovim", False
+    return "neovim", True
